@@ -29,3 +29,14 @@ function operate(operator, a, b) {
         return divide(a, b);
     }
 }
+
+const buttons = document.querySelectorAll("button");
+const calcDisplay = document.querySelector("#display");
+let displayValue = "";
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        displayValue += `${button.id}`
+        display.textContent = displayValue;
+    });
+});
