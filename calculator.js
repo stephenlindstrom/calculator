@@ -30,13 +30,37 @@ function operate(operator, a, b) {
     }
 }
 
-const buttons = document.querySelectorAll("button");
+const numbers = document.querySelectorAll(".number");
+const operations = document.querySelectorAll(".operation")
+const equals = document.querySelector("#equals")
 const calcDisplay = document.querySelector("#display");
 let displayValue = "";
 
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-        displayValue += `${button.id}`
+numbers.forEach((number) => {
+    number.addEventListener("click", () => {
+        displayValue += `${number.id}`;
         display.textContent = displayValue;
+        if (!operator) {
+            number1 = `${number.id}`;
+            console.log(`Number 1 is ${number1}`);
+        } else {
+            number2 = `${number.id}`;
+            console.log(`Number 2 is ${number2}`);
+        }
     });
 });
+
+operations.forEach((operation) => {
+    operation.addEventListener("click", () => {
+        displayValue += operation.textContent;
+        display.textContent = displayValue;
+        operator = `${operation.id}`;
+        console.log(operator);
+    });
+});
+
+equals.addEventListener("click", () => {
+    const result = operate(operator, number1, number2);
+    displayValue = result;
+    display.textContent  = displayValue;
+})
