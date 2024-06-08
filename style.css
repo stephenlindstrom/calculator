@@ -1,15 +1,35 @@
+h1 {
+    text-align: center;
+}
+
 #calculator-container {
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: 600px;
+    width: 500px;
+    border: 2px solid black;
+    margin: 20px auto;
 }
 
 .button-row {
     display: flex;
     flex: 1;
     width: 500px;
+    height: 100px;
 }
 
 button {
     flex: 1;
+}
+
+#display {
+    flex: 3;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 30px;
+}
+
+#clear {
+    flex: none;
+    width: 125px;
 }
