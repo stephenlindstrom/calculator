@@ -35,17 +35,20 @@ const operations = document.querySelectorAll(".operation")
 const equals = document.querySelector("#equals")
 const calcDisplay = document.querySelector("#display");
 let displayValue = "";
+let currentNum = "";
 
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
         displayValue += `${number.id}`;
         display.textContent = displayValue;
         if (!operator) {
-            number1 = `${number.id}`;
-            console.log(`Number 1 is ${number1}`);
+            currentNum += `${number.id}`;
+            number1 = parseInt(currentNum);
+            console.log(`number1 ${number1}`);
         } else {
-            number2 = `${number.id}`;
-            console.log(`Number 2 is ${number2}`);
+            currentNum += `${number.id}`;
+            number2 = parseInt(currentNum);
+            console.log(`number2 ${number2}`);
         }
     });
 });
@@ -55,7 +58,7 @@ operations.forEach((operation) => {
         displayValue += operation.textContent;
         display.textContent = displayValue;
         operator = `${operation.id}`;
-        console.log(operator);
+        currentNum = "";
     });
 });
 
