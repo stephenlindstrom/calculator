@@ -34,14 +34,17 @@ const numbers = document.querySelectorAll(".number");
 const operations = document.querySelectorAll(".operation")
 const equals = document.querySelector("#equals")
 const calcDisplay = document.querySelector("#display");
+const clear = document.querySelector("#clear");
+
 let displayValue = "";
 let currentNum = "";
+let operatorSelected = false;
 
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
         displayValue += `${number.id}`;
         display.textContent = displayValue;
-        if (!operator) {
+        if (!operatorSelected) {
             currentNum += `${number.id}`;
             number1 = parseInt(currentNum);
             console.log(`number1 ${number1}`);
@@ -59,6 +62,7 @@ operations.forEach((operation) => {
         display.textContent = displayValue;
         operator = `${operation.id}`;
         currentNum = "";
+        operatorSelected = true;
     });
 });
 
@@ -66,4 +70,14 @@ equals.addEventListener("click", () => {
     const result = operate(operator, number1, number2);
     displayValue = result;
     display.textContent  = displayValue;
+    displayValue = "";
+    currentNum = "";
+    operatorSelected = false;
 })
+
+clear.addEventListener("click", () => {
+    display.textContent = "";
+    displayValue = "";
+    currentNum = "";
+    operatorSelected = false;
+});
