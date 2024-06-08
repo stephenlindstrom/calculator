@@ -58,11 +58,19 @@ numbers.forEach((number) => {
 
 operations.forEach((operation) => {
     operation.addEventListener("click", () => {
-        displayValue += operation.textContent;
-        display.textContent = displayValue;
-        operator = `${operation.id}`;
-        currentNum = "";
-        operatorSelected = true;
+        if (!operatorSelected) {
+            displayValue += operation.textContent;
+            display.textContent = displayValue;
+            operator = `${operation.id}`;
+            currentNum = "";
+            operatorSelected = true;
+        } else {
+            number1 = operate(operator, number1, number2);
+            operator = `${operation.id}`;
+            displayValue = number1 + operation.textContent;
+            display.textContent = displayValue;
+            currentNum = "";
+        }
     });
 });
 
