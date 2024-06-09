@@ -49,10 +49,11 @@ let decimalSelected = false;
 
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
-        displayValue += `${number.id}`;
-        display.textContent = displayValue;
         if (!operatorSelected) {
-            currentNum = displayValue;
+            if (currentNum === "") {
+                displayValue = "";
+            }
+            currentNum += `${number.id}`;
             number1 = Number(currentNum);
             number1Selected = true;
             console.log(`number1 ${number1}`);
@@ -62,6 +63,9 @@ numbers.forEach((number) => {
             number2Selected = true;
             console.log(`number2 ${number2}`);
         }
+        
+        displayValue += `${number.id}`;
+        display.textContent = displayValue;
     });
 });
 
@@ -100,10 +104,10 @@ equals.addEventListener("click", () => {
         const result = operate(operator, number1, number2);
         displayValue = result;
         display.textContent  = displayValue;
-        displayValue = "";
         currentNum = "";
+        number1 = result;
         operatorSelected = false;
-        number1Selected = false;
+        number1Selected = true;
         number2Selected = false;
         decimalSelected = false;
     }
