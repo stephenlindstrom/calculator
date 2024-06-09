@@ -39,6 +39,8 @@ const clear = document.querySelector("#clear");
 let displayValue = "";
 let currentNum = "";
 let operatorSelected = false;
+let number1Selected = false;
+let number2Selected = false;
 
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
@@ -47,10 +49,12 @@ numbers.forEach((number) => {
         if (!operatorSelected) {
             currentNum += `${number.id}`;
             number1 = parseInt(currentNum);
+            number1Selected = true;
             console.log(`number1 ${number1}`);
         } else {
             currentNum += `${number.id}`;
             number2 = parseInt(currentNum);
+            number2Selected = true;
             console.log(`number2 ${number2}`);
         }
     });
@@ -58,29 +62,39 @@ numbers.forEach((number) => {
 
 operations.forEach((operation) => {
     operation.addEventListener("click", () => {
-        if (!operatorSelected) {
-            displayValue += operation.textContent;
-            display.textContent = displayValue;
-            operator = `${operation.id}`;
-            currentNum = "";
-            operatorSelected = true;
-        } else {
-            number1 = operate(operator, number1, number2);
-            operator = `${operation.id}`;
-            displayValue = number1 + operation.textContent;
-            display.textContent = displayValue;
-            currentNum = "";
-        }
+        if (number1Selected) {
+            if (!operatorSelected) {
+                displayValue += operation.textContent;
+                display.textContent = displayValue;
+                operator = `${operation.id}`;
+                currentNum = "";
+                operatorSelected = true;
+            } else {
+                if (number2Selected) {
+                    number1 = operate(operator, number1, number2);
+                    number1Selected = true;
+                    number2Selected = false;
+                    operator = `${operation.id}`;
+                    displayValue = number1 + operation.textContent;
+                    display.textContent = displayValue;
+                    currentNum = "";
+                }
+            }
+        }   
     });
 });
 
 equals.addEventListener("click", () => {
-    const result = operate(operator, number1, number2);
-    displayValue = result;
-    display.textContent  = displayValue;
-    displayValue = "";
-    currentNum = "";
-    operatorSelected = false;
+    if (number2Selected) {
+        const result = operate(operator, number1, number2);
+        displayValue = result;
+        display.textContent  = displayValue;
+        displayValue = "";
+        currentNum = "";
+        operatorSelected = false;
+        number1Selected = false;
+        number2Selected = false;
+    }
 })
 
 clear.addEventListener("click", () => {
@@ -88,4 +102,6 @@ clear.addEventListener("click", () => {
     displayValue = "";
     currentNum = "";
     operatorSelected = false;
+    number1Selected = false;
+    number2Selected = false;
 });
