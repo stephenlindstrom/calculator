@@ -78,6 +78,10 @@ operations.forEach((operation) => {
                     displayValue = number1 + operation.textContent;
                     display.textContent = displayValue;
                     currentNum = "";
+                } else {
+                    operator = `${operation.id}`;
+                    displayValue = number1 + operation.textContent;
+                    display.textContent = displayValue;
                 }
             }
         }   
