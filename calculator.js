@@ -36,7 +36,7 @@ function operate(operator, a, b) {
 const numbers = document.querySelectorAll(".number");
 const operations = document.querySelectorAll(".operation")
 const equals = document.querySelector("#equals")
-const calcDisplay = document.querySelector("#display");
+const display = document.querySelector("#display");
 const clear = document.querySelector("#clear");
 const decimalPoint = document.querySelector("#decimal-point");
 
@@ -63,9 +63,8 @@ numbers.forEach((number) => {
             number2Selected = true;
             console.log(`number2 ${number2}`);
         }
-        
-        displayValue += `${number.id}`;
-        display.textContent = displayValue;
+
+        updateDisplay(`${number.id}`);
     });
 });
 
@@ -73,8 +72,7 @@ operations.forEach((operation) => {
     operation.addEventListener("click", () => {
         if (number1Selected) {
             if (!operatorSelected) {
-                displayValue += operation.textContent;
-                display.textContent = displayValue;
+                updateDisplay(operation.textContent);
                 operator = `${operation.id}`;
                 currentNum = "";
                 operatorSelected = true;
@@ -85,14 +83,13 @@ operations.forEach((operation) => {
                     number1Selected = true;
                     number2Selected = false;
                     operator = `${operation.id}`;
-                    displayValue = number1 + operation.textContent;
-                    display.textContent = displayValue;
+                    updateDisplay(operation.textContent);
                     currentNum = "";
                     decimalSelected = false;
                 } else {
                     operator = `${operation.id}`;
-                    displayValue = number1 + operation.textContent;
-                    display.textContent = displayValue;
+                    clearDisplay();
+                    updateDisplay(number1 + operation.textContent);
                 }
             }
         }   
@@ -102,8 +99,8 @@ operations.forEach((operation) => {
 equals.addEventListener("click", () => {
     if (number2Selected) {
         const result = operate(operator, number1, number2);
-        displayValue = result;
-        display.textContent  = displayValue;
+        clearDisplay();
+        updateDisplay(result);
         currentNum = "";
         number1 = result;
         operatorSelected = false;
@@ -114,8 +111,7 @@ equals.addEventListener("click", () => {
 })
 
 clear.addEventListener("click", () => {
-    display.textContent = "";
-    displayValue = "";
+    clearDisplay();
     currentNum = "";
     operatorSelected = false;
     number1Selected = false;
@@ -125,9 +121,18 @@ clear.addEventListener("click", () => {
 
 decimalPoint.addEventListener("click", () => {
     if (!decimalSelected) {
-        displayValue += ".";
         currentNum += ".";
-        display.textContent = displayValue;
+        updateDisplay(".");
         decimalSelected = true;
     }
 });
+
+function updateDisplay (update) {
+    displayValue += update;
+    display.textContent = displayValue;
+}
+
+function clearDisplay () {
+    displayValue = "";
+    display.textContent = displayValue;
+}
