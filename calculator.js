@@ -53,7 +53,7 @@ numbers.forEach((number) => {
             if (currentNum === "") {
                 displayValue = "";
             }
-            currentNum += `${number.id}`;
+            addDigitToCurrentNum(`${number.id}`);
             number1 = Number(currentNum);
             number1Selected = true;
             console.log(`number1 ${number1}`);
@@ -135,4 +135,8 @@ function updateDisplay (update) {
 function clearDisplay () {
     displayValue = "";
     display.textContent = displayValue;
+}
+
+function addDigitToCurrentNum (digit) {
+    currentNum += digit;
 }
